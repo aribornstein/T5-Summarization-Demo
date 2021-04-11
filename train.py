@@ -23,8 +23,10 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=1234)
     parser.add_argument('--backbone', type=str, default="google/mt5-small")
     parser.add_argument('--download', type=bool, default=True)
-    parser.add_argument('--train_file', type=str, default="data/xsum/train.csv")
-    parser.add_argument('--valid_file', type=str, default="data/xsum/valid.csv")
+    parser.add_argument('--train_file', type=str,
+                        default="data/xsum/train.csv")
+    parser.add_argument('--valid_file', type=str,
+                        default="data/xsum/valid.csv")
     parser.add_argument('--test_file', type=str, default="data/xsum/test.csv")
     parser.add_argument('--max_epochs', type=int, default=1)
     parser.add_argument('--learning_rate', type=float, default=1e-3)
@@ -33,7 +35,8 @@ if __name__ == '__main__':
 
     # 1. Download the data
     if args.download:
-        download_data("https://pl-flash-data.s3.amazonaws.com/xsum.zip", "data/")
+        download_data(
+            "https://pl-flash-data.s3.amazonaws.com/xsum.zip", "data/")
 
     # 2. Load the data
     datamodule = SummarizationData.from_files(
@@ -48,7 +51,10 @@ if __name__ == '__main__':
     model = SummarizationTask(backbone=args.backbone)
 
     # 4. Create the trainer. Run once on data
-    trainer = flash.Trainer(gpus=args.gpus, learning_rate=args.learning_rate, fast_dev_run=True)
+    trainer = flash.Trainer(gpus=args.gpus,
+                            learning_rate=args.learning_rate, 
+                            max_epochs=args.max_epochs, 
+                            fast_dev_run=True)
 
     # 5. Fine-tune the model
     trainer.finetune(model, datamodule=datamodule)
