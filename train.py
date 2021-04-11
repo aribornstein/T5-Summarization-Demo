@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # 2. Load the data
     datamodule = SummarizationData.from_files(
         train_file="data/xsum/train.csv",
-        val_file="data/xsum/valid.csv",
+        valid_file="data/xsum/valid.csv",
         test_file="data/xsum/test.csv",
         input="input",
         target="target"
