@@ -48,11 +48,11 @@ if __name__ == '__main__':
     )
 
     # 3. Build the model
-    model = SummarizationTask(backbone=args.backbone)
+    model = SummarizationTask(backbone=args.backbone,
+                              learning_rate=args.learning_rate)
 
     # 4. Create the trainer. Run once on data
     trainer = flash.Trainer(gpus=args.gpus,
-                            learning_rate=args.learning_rate, 
                             max_epochs=args.max_epochs, 
                             fast_dev_run=True)
 
