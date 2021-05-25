@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
-import flash
+import torch
 from argparse import ArgumentParser
-from flash.core.data import download_data
+from flash import Trainer
+from flash.core.data.utils import download_data
 from flash.text import SummarizationData, SummarizationTask
+
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -35,16 +37,16 @@ if __name__ == '__main__':
 
     # 1. Download the data
     if args.download:
-        download_data(
-            "https://pl-flash-data.s3.amazonaws.com/xsum.zip", "data/")
+        download_data("https://pl-flash-data.s3.amazonaws.com/xsum.zip", "data/")
+
 
     # 2. Load the data
-    datamodule = SummarizationData.from_files(
-        train_file="data/xsum/train.csv",
-        valid_file="data/xsum/valid.csv",
-        test_file="data/xsum/test.csv",
-        input="input",
-        target="target"
+    datamodule = SummarizationData.from_csv(
+        "input",
+        "target",
+        train_file=args.train_file,
+        val_file=args.valid_file,
+        test_file=args.test_file,
     )
 
     # 3. Build the model
