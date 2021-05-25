@@ -1,2 +1,2 @@
-lightning-flash
+lightning-flash[text]
 nltk!=3.6
