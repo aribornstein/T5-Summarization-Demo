@@ -54,7 +54,7 @@ if __name__ == '__main__':
                               learning_rate=args.learning_rate)
 
     # 4. Create the trainer. Run once on data
-    trainer = flash.Trainer(gpus=args.gpus,
+    trainer = Trainer(gpus=args.gpus,
                             max_epochs=args.max_epochs, 
                             fast_dev_run=True)
 
